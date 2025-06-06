@@ -17,6 +17,15 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validation: {
+        len: [2, 20],
+
+        noEndingInY(value) {
+          if (value[value.length -1] === 'y') {
+            throw new Error('name must not end in \'y\'');
+          }
+        }
+      }
     }
   }, {
     sequelize,
